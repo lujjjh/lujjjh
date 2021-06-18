@@ -1,1 +1,1 @@
-![](hello.svg)
+[![](hello.svg)](#)
