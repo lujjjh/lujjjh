@@ -44,6 +44,8 @@ const heyWidth2x = heyWidth * 2;
 const heyHeight2x = heyHeight * 2;
 const imLujjjhWidth = 132;
 const imLujjjhHeight = 57;
+const workingWidth = 718;
+const workingHeight = 400;
 
 const hello = html`<svg
   width="${width + padding * 2}"
@@ -130,7 +132,7 @@ const hello = html`<svg
             [35 - width / 2 + heyWidth2x / 2, 30 - height / 2 + heyHeight2x / 2]
           )}"
           begin="heyOut.end+.25s"
-          dur=".5s"
+          dur=".75s"
           fill="freeze"
         />
       </g>
@@ -160,7 +162,7 @@ const hello = html`<svg
           type="translate"
           values="${easeOutCubic([0, 0], [35 - width / 2 + imLujjjhWidth / 2, 145 - height / 2 + imLujjjhHeight / 2])}"
           begin="heyMove.begin"
-          dur=".5s"
+          dur=".75s"
           fill="freeze"
         />
       </g>
@@ -170,15 +172,15 @@ const hello = html`<svg
     <circle cx="0" r="0">
       <animate
         attributeName="r"
-        values="${easeOutCubic(0, Math.sqrt(Math.pow(718, 2) + Math.pow(400, 2)))}"
+        values="${easeOutCubic(0, Math.sqrt(2) * workingWidth)}"
         begin="heyMove.begin"
-        dur=".75s"
+        dur="1s"
         fill="freeze"
       />
     </circle>
   </clipPath>
-  <g transform="translate(940 0)" clip-path="url(#workingMask)">
-    <g transform="translate(-940 0)">
+  <g transform="translate(${width + padding * 2} ${workingWidth})" clip-path="url(#workingMask)">
+    <g transform="translate(-${width + padding * 2} -${workingWidth})">
       <g transform="translate(222 0)">
         <use href="#working" />
       </g>
