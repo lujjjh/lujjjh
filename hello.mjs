@@ -34,6 +34,7 @@ const interpolate =
   };
 
 const easeOutCubic = interpolate((x) => 1 - Math.pow(1 - x, 3));
+const easeInOutCubic = interpolate((x) => (x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2));
 
 const padding = 20;
 const width = 900;
@@ -92,8 +93,8 @@ const hello = html`<svg
             <animateTransform
               attributeName="transform"
               type="scale"
-              values="${easeOutCubic(1, 2)}"
-              begin="heyOut.end+.25s"
+              values="${easeInOutCubic(1, 2)}"
+              begin="heyMove.begin+.125s"
               dur=".5s"
               fill="freeze"
             />
@@ -102,7 +103,7 @@ const hello = html`<svg
         <animate
           id="heyIn"
           attributeName="opacity"
-          values="${easeOutCubic(0, 1)}"
+          values="${easeInOutCubic(0, 1)}"
           begin=".25s"
           dur=".5s"
           fill="freeze"
@@ -111,14 +112,14 @@ const hello = html`<svg
           id="heyOut"
           attributeName="transform"
           type="translate"
-          values="${easeOutCubic([0, 0], [0, -heyHeight])}"
+          values="${easeInOutCubic([0, 0], [0, -heyHeight])}"
           begin="heyIn.end+.25s"
           dur=".5s"
           fill="freeze"
         />
         <animate
           attributeName="opacity"
-          values="${easeOutCubic(1, 0.5)}"
+          values="${easeInOutCubic(1, 0.5)}"
           begin="heyOut.begin"
           dur=".5s"
           fill="freeze"
@@ -127,11 +128,11 @@ const hello = html`<svg
           id="heyMove"
           attributeName="transform"
           type="translate"
-          values="${easeOutCubic(
+          values="${easeInOutCubic(
             [0, -heyHeight],
             [35 - width / 2 + heyWidth2x / 2, 30 - height / 2 + heyHeight2x / 2]
           )}"
-          begin="heyOut.end+.25s"
+          begin="heyOut.end+.5s"
           dur=".75s"
           fill="freeze"
         />
@@ -144,14 +145,14 @@ const hello = html`<svg
           id="imLujjjhIn"
           attributeName="transform"
           type="translate"
-          values="${easeOutCubic([0, 57], [0, 0])}"
+          values="${easeInOutCubic([0, 57], [0, 0])}"
           begin="heyIn.end+.25s"
           dur=".5s"
           fill="freeze"
         />
         <animate
           attributeName="opacity"
-          values="${easeOutCubic(0, 1)}"
+          values="${easeInOutCubic(0, 1)}"
           begin="imLujjjhIn.begin"
           dur=".5s"
           fill="freeze"
@@ -160,7 +161,10 @@ const hello = html`<svg
           id="imLujjjhIn"
           attributeName="transform"
           type="translate"
-          values="${easeOutCubic([0, 0], [35 - width / 2 + imLujjjhWidth / 2, 145 - height / 2 + imLujjjhHeight / 2])}"
+          values="${easeInOutCubic(
+            [0, 0],
+            [35 - width / 2 + imLujjjhWidth / 2, 145 - height / 2 + imLujjjhHeight / 2]
+          )}"
           begin="heyMove.begin"
           dur=".75s"
           fill="freeze"
@@ -172,9 +176,9 @@ const hello = html`<svg
     <circle cx="0" r="0">
       <animate
         attributeName="r"
-        values="${easeOutCubic(0, Math.sqrt(2) * workingWidth)}"
+        values="${easeInOutCubic(0, Math.sqrt(2) * workingWidth)}"
         begin="heyMove.begin"
-        dur="1s"
+        dur=".75s"
         fill="freeze"
       />
     </circle>
