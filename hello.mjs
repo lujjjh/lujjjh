@@ -168,11 +168,21 @@ const hello = html`<svg
   </g>
   <clipPath id="workingMask">
     <circle cx="0" r="0">
-      <animate attributeName="r" values="${easeOutCubic(0, 1650)}" begin="heyMove.end+.25s" dur="3s" fill="freeze" />
+      <animate
+        attributeName="r"
+        values="${easeOutCubic(0, Math.sqrt(Math.pow(718, 2) + Math.pow(400, 2)))}"
+        begin="heyMove.begin"
+        dur=".75s"
+        fill="freeze"
+      />
     </circle>
   </clipPath>
-  <g transform="translate(222 0)">
-    <use clip-path="url(#workingMask)" href="#working" />
+  <g transform="translate(940 0)" clip-path="url(#workingMask)">
+    <g transform="translate(-940 0)">
+      <g transform="translate(222 0)">
+        <use href="#working" />
+      </g>
+    </g>
   </g>
 </svg>`;
 
