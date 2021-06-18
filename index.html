@@ -4,9 +4,73 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>lujjjh</title>
+    <title>lujjjh: Write cool things</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <style>
+      :root {
+        --background-color: #f4f5f6;
+        --text-color: #333;
+        --text-secondary-color: #999;
+        --font-family: sans-serif;
+        --font-size: 14px;
+        --primary-color: #0073c6;
+      }
+      html {
+        background-color: var(--background-color);
+        color: var(--text-color);
+        font-family: var(--font-family);
+        font-size: var(--font-size);
+      }
+      body {
+        align-items: center;
+        justify-content: center;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        margin: 0;
+      }
+      h1 {
+        font-size: 2rem;
+        margin: 2rem 0;
+      }
+      a {
+        color: var(--primary-color);
+        text-decoration: none;
+      }
+      body > div {
+        margin: 1rem;
+        max-width: 800px;
+      }
+      header {
+        align-items: center;
+        display: flex;
+        margin: 2rem 0;
+      }
+      header > *:not(:first-child) {
+        margin-left: 1rem;
+      }
+      main {
+        color: var(--text-secondary-color);
+        margin: 4rem 0;
+      }
+      footer {
+        margin: 2rem 0;
+      }
+    </style>
   </head>
   <body>
-    <p>Hey! I'm lujjjh.</p>
+    <div>
+      <header>
+        <img src="favicon.svg" width="60" height="60" alt="avatar" />
+        <h1>lujjjh</h1>
+      </header>
+      <main>
+        <p>
+          <a href="https://linearmouse.lujjjh.com" rel="noreferrer nofollow">LinearMouse</a>: A minimal app to get rid
+          of mouse acceleration on macOS.
+        </p>
+      </main>
+      <footer><a href="https://github.com/lujjjh" rel="noreferrer nofollow">GitHub</a></footer>
+    </div>
   </body>
 </html>
