@@ -19,7 +19,7 @@ const interpolate =
     if (!Array.isArray(to)) to = [to];
     assert.equal(to.length, from.length);
     const precision = 0.1;
-    return Array.from({ length: 1 / precision })
+    return Array.from({ length: 1 / precision + 1 })
       .map((_, i) => i * precision)
       .map((x) =>
         from
@@ -33,7 +33,7 @@ const interpolate =
       .join(';');
   };
 
-const easeOutCubic = interpolate((x) => 1 - Math.pow(1 - x, 3));
+const linear = interpolate((x) => x);
 const easeInOutCubic = interpolate((x) => (x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2));
 
 const padding = 20;
@@ -158,7 +158,6 @@ const hello = html`<svg
           fill="freeze"
         />
         <animateTransform
-          id="imLujjjhIn"
           attributeName="transform"
           type="translate"
           values="${easeInOutCubic(
@@ -175,6 +174,7 @@ const hello = html`<svg
   <clipPath id="workingMask">
     <circle cx="0" r="0">
       <animate
+        id="workingIn"
         attributeName="r"
         values="${easeInOutCubic(0, Math.sqrt(2) * workingWidth)}"
         begin="heyMove.begin"
@@ -187,6 +187,39 @@ const hello = html`<svg
     <g transform="translate(-${width + padding * 2} -${workingWidth})">
       <g transform="translate(222 0)">
         <use href="#working" />
+        <circle transform="translate(-1000 -1000)" r="100" fill="white" fill-opacity="0.1">
+          <animateTransform
+            attributeName="transform"
+            type="translate"
+            values="${linear([-100, -100], [workingWidth + 100, workingHeight + 100])}"
+            begin="-1024s"
+            dur="32s"
+            fill="freeze"
+            repeatCount="indefinite"
+          />
+        </circle>
+        <circle transform="translate(-1000 -1000)" r="80" fill="white" fill-opacity="0.08">
+          <animateTransform
+            attributeName="transform"
+            type="translate"
+            values="${linear([400, -80], [220, workingHeight + 80])}"
+            begin="-1024s"
+            dur="25s"
+            fill="freeze"
+            repeatCount="indefinite"
+          />
+        </circle>
+        <circle transform="translate(-1000 -1000)" r="120" fill="white" fill-opacity="0.15">
+          <animateTransform
+            attributeName="transform"
+            type="translate"
+            values="${linear([workingWidth + 120, workingHeight + 120], [workingWidth / 3, -120])}"
+            begin="-1024s"
+            dur="28s"
+            fill="freeze"
+            repeatCount="indefinite"
+          />
+        </circle>
       </g>
     </g>
   </g>
