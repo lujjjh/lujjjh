@@ -18,7 +18,7 @@ const interpolate =
     if (!Array.isArray(from)) from = [from];
     if (!Array.isArray(to)) to = [to];
     assert.equal(to.length, from.length);
-    const precision = 0.1;
+    const precision = 0.05;
     return Array.from({ length: 1 / precision + 1 })
       .map((_, i) => i * precision)
       .map((x) =>
