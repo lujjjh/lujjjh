@@ -1,4 +1,40 @@
-<svg width="1000" height="368" viewBox="0 0 1000 368" fill="none" xmlns="http://www.w3.org/2000/svg">
+#!/usr/bin/env node
+
+import { strict as assert } from 'assert';
+import { writeFileSync } from 'fs';
+
+// pretend to use lit-html and help VSCode highlight the SVG code below
+const html = String.raw;
+
+/**
+ * @param easingFn {(n: number) => number}
+ */
+const interpolate =
+  (easingFn) =>
+  /**
+   * @param from {number | number[]}
+   * @param to {number | number[]} */ (from, to) => {
+    if (!Array.isArray(from)) from = [from];
+    if (!Array.isArray(to)) to = [to];
+    assert.equal(to.length, from.length);
+    const precision = 0.1;
+    return Array.from({ length: 1 / precision })
+      .map((_, i) => i * precision)
+      .map((x) =>
+        from
+          .map((fromValue, index) => {
+            const toValue = to[index];
+            const value = fromValue + (toValue - fromValue) * easingFn(x);
+            return +value.toFixed(2);
+          })
+          .join(' ')
+      )
+      .join(';');
+  };
+
+const easeOutCubic = interpolate((x) => 1 - Math.pow(1 - x, 3));
+
+const hello = html`<svg width="1000" height="368" viewBox="0 0 1000 368" fill="none" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <path
       id="hey"
@@ -17,7 +53,7 @@
       <animate
         id="heyInOpacity"
         attributeName="opacity"
-        values="0;0.27;0.49;0.66;0.78;0.88;0.94;0.97;0.99;1"
+        values="${easeOutCubic(0, 1)}"
         begin=".25s"
         dur=".75s"
         fill="freeze"
@@ -25,7 +61,7 @@
       <animateTransform
         attributeName="transform"
         type="translate"
-        values="0 0;0 -15.45;0 -27.82;0 -37.45;0 -44.69;0 -49.88;0 -53.35;0 -55.46;0 -56.54;0 -56.94"
+        values="${easeOutCubic([0, 0], [0, -57])}"
         begin="heyInOpacity.end"
         dur=".75s"
         fill="freeze"
@@ -33,7 +69,7 @@
       />
       <animate
         attributeName="opacity"
-        values="1;0.86;0.76;0.67;0.61;0.56;0.53;0.51;0.5;0.5"
+        values="${easeOutCubic(1, 0.5)}"
         begin="heyInOpacity.end"
         dur=".75s"
         fill="freeze"
@@ -43,12 +79,14 @@
       <animateTransform
         attributeName="transform"
         type="translate"
-        values="0 57;0 41.55;0 29.18;0 19.55;0 12.31;0 7.13;0 3.65;0 1.54;0 0.46;0 0.06"
+        values="${easeOutCubic([0, 57], [0, 0])}"
         begin="heyInOpacity.end"
         dur=".75s"
         fill="freeze"
       />
-      <animate attributeName="opacity" values="0;0.27;0.49;0.66;0.78;0.88;0.94;0.97;0.99;1" begin="1s" dur=".75s" fill="freeze" />
+      <animate attributeName="opacity" values="${easeOutCubic(0, 1)}" begin="1s" dur=".75s" fill="freeze" />
     </use>
   </g>
-</svg>
+</svg>`;
+
+writeFileSync('hello.svg', hello + '\n');
