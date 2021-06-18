@@ -2,6 +2,7 @@
 
 import { strict as assert } from 'assert';
 import { writeFileSync } from 'fs';
+import svgo from 'svgo';
 
 // pretend to use lit-html and help VSCode highlight the SVG code below
 const html = String.raw;
@@ -84,4 +85,31 @@ const hello = html`<svg width="900" height="360" viewBox="0 0 1000 368" fill="no
   </g>
 </svg>`;
 
-writeFileSync('hello.svg', hello + '\n');
+writeFileSync(
+  'hello.svg',
+  svgo.optimize(hello, {
+    floatPrecision: 1,
+    plugins: [
+      'cleanupAttrs',
+      'removeComments',
+      'removeUselessDefs',
+      'removeEmptyAttrs',
+      'removeEmptyContainers',
+      'removeViewBox',
+      'convertColors',
+      'convertPathData',
+      'convertTransform',
+      'removeUnknownsAndDefaults',
+      'removeNonInheritableGroupAttrs',
+      'removeUselessStrokeAndFill',
+      'cleanupIDs',
+      'cleanupNumericValues',
+      'moveElemsAttrsToGroup',
+      'moveGroupAttrsToElems',
+      'collapseGroups',
+      'mergePaths',
+      'convertShapeToPath',
+      'sortDefsChildren',
+    ],
+  }).data + '\n'
+);

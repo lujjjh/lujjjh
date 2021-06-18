@@ -1,0 +1,7 @@
+{
+  "name": "lujjjh",
+  "private": true,
+  "devDependencies": {
+    "svgo": "^2.3.0"
+  }
+}
